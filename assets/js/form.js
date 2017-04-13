@@ -44,7 +44,7 @@ $(document).ready(function() {
            },
            error: function() {
            		$("#recommendationMatch").css("display", "block");
-           		$("#recommendationMatch").html("Sorry, we don't have any recommendations for these artists.");
+           		$("#recommendationMatch").html("Sorry, we don't have any recommendations from your query.");
            }
          });
 
