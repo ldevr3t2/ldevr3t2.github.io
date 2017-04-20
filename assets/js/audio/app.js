@@ -1,6 +1,7 @@
 function restore(){
   $("#record").removeClass("disabled");
-  $("#pause").replaceWith('<a class="button one" id="pause">Pause</a>');
+  $("#pause").html("Pause");
+  $("#pause").removeClass("resume");
   $(".one").addClass("disabled");
   Fr.voice.stop();
 }
@@ -81,10 +82,12 @@ $(document).ready(function(){
   $(document).on("click", "#pause:not(.disabled)", function(){
     if($(this).hasClass("resume")){
       Fr.voice.resume();
-      $(this).replaceWith('<a class="button one" id="pause">Pause</a>');
+      $(this).html("Pause");
+      $(this).removeClass("resume");
     }else{
       Fr.voice.pause();
-      $(this).replaceWith('<a class="button one resume" id="pause">Resume</a>');
+      $(this).html("Resume");
+      $(this).addClass("resume");
     }
   });
 
