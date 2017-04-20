@@ -8,7 +8,8 @@ $(document).ready(function() {
 		"<input type=\"text\" name=\"artist-1\" id=\"artist-1\" value=\"\" placeholder=\"e.g. Van Morrison\" />",
 		"<input type=\"text\" name=\"artist-2\" id=\"artist-2\" value=\"\" placeholder=\"e.g. Van Stephensen\" />",
 		"<input type=\"text\" name=\"artist-3\" id=\"artist-3\" value=\"\" placeholder=\"e.g. Van Craven\" />",
-		"<input type=\"text\" name=\"artist-4\" id=\"artist-4\" value=\"\" placeholder=\"e.g. Van Williams\" />"
+		"<input type=\"text\" name=\"artist-4\" id=\"artist-4\" value=\"\" placeholder=\"e.g. Van Williams\" />",
+		"<input type=\"text\" name=\"artist-5\" id=\"artist-5\" value=\"\" placeholder=\"e.g. Van Wilder\" />"
 	];
 
 	var artistCounter = 0;
@@ -16,13 +17,13 @@ $(document).ready(function() {
 	$("#addArtist").click(function() {
 
 		//we will check to see how many artists are on screen
-		if(artistCounter < 5) {
+		if(artistCounter < 6) {
 			//if less than 5, another artist is added
 			$("#field").append(artistList[artistCounter]);
 			artistCounter++;
 		}
 		
-		if(artistCounter == 4) {
+		if(artistCounter == 5) {
 			//we disable the button at 5 presses
 			  if($("#addArtist").is( "button" )) {
 			    $("#addArtist").prop('disabled', true);
