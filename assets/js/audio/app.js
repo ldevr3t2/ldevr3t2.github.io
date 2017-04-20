@@ -2,7 +2,13 @@ function restore(){
   $("#record").removeClass("disabled");
   $("#pause").html("Pause");
   $("#pause").removeClass("resume");
+  
+  if($(".one").is( "button" )) {
+    $(".one").prop('disabled', true);
+  }
+    
   $(".one").addClass("disabled");
+
   Fr.voice.stop();
 }
 
@@ -58,6 +64,10 @@ $(document).ready(function(){
       $(".recordButton").addClass("disabled");
 
       $("#live").addClass("disabled");
+
+      if($(".one").is("button")) {
+        $(".one").prop('disabled', false);
+      }
       $(".one").removeClass("disabled");
 
       makeWaveform();

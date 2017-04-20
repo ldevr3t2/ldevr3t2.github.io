@@ -24,6 +24,9 @@ $(document).ready(function() {
 		
 		if(artistCounter == 4) {
 			//we disable the button at 5 presses
+			  if($("#addArtist").is( "button" )) {
+			    $("#addArtist").prop('disabled', true);
+			  }
 			$("#addArtist").addClass("disabled");
 		}
 
