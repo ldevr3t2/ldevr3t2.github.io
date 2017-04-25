@@ -99,7 +99,16 @@
 				$that.recorder.record();
 				finishCallback(stream);
 			}, function() {
-				alert('No live audio input');
+				if(isTest) {
+
+				  if($(".one").is( "button" )) {
+				    $(".one").prop('disabled', false);
+				  }
+				    
+				  $(".one").removeClass("disabled");
+				} else {
+					alert('No live audio input');
+				}
 			});
 		},
 

@@ -153,33 +153,39 @@ $(document).ready(function(){
   });
 
   $(document).on("click", "#search:not(.disabled)", function(){
-    function upload(blob){
-      var formData = new FormData();
-      formData.append('file', blob);
+    if(isTest) {
+      $("#match").css("display", "block");
+      $("#match").html("No Results Found.");
+    } else {
+      function upload(base64){
+        var formData = new FormData();
+        formData.append('base64', base64);
 
-      var url = "CHANGE THIS";
-      $.ajax({
-        url: url,
-        type: 'POST',
-        crossDomain: true, //for local testing
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(result) {
-          $("#match").css("display", "block");
-          $("#match").html("Your Match: " + result.song + " by " + result.artist);
-        },
-        error: function() {
-          $("#match").css("display", "block");
-          $("#match").html("No Results Found.");
-        }
-      });
+        var url = "CHANGE THIS";
+        $.ajax({
+          url: url,
+          type: 'POST',
+          crossDomain: true, //for local testing
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function(result) {
+            $("#match").css("display", "block");
+            $("#match").html("Your Match: " + result.song + " by " + result.artist);
+          },
+          error: function() {
+            $("#match").css("display", "block");
+            $("#match").html("No Results Found.");
+          }
+        });
+      }
+      if($(this).parent().data("type") === "mp3"){
+        Fr.voice.exportMP3(upload, "base64");
+      }else{
+        Fr.voice.export(upload, "base64");
+      }
     }
-    if($(this).parent().data("type") === "mp3"){
-      Fr.voice.exportMP3(upload, "blob");
-    }else{
-      Fr.voice.export(upload, "blob");
-    }
+
     restore();
   });
 });
