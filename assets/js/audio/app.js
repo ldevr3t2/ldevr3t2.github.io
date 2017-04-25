@@ -159,9 +159,9 @@ $(document).ready(function(){
     } else {
       function upload(base64){
         var formData = new FormData();
-        formData.append('base64', base64);
+        formData.append('music_buffer', base64);
 
-        var url = "CHANGE THIS";
+        var url = "http://ec2-52-36-24-190.us-west-2.compute.amazonaws.com:8080/team2/fingerprint/";
         $.ajax({
           url: url,
           type: 'POST',
