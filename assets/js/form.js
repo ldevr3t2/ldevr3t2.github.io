@@ -34,23 +34,49 @@ $(document).ready(function() {
 	});
 
 	$("#recommendationForm").submit(function(e) {
-		var url = "CHANGE THIS";
 
-		$.ajax({
-           type: "POST",
-           crossDomain: true,
-           url: url,
-           data: $("#idForm").serialize(), // serializes the form's elements.
-           success: function(result)
-           {
-       			$("#recommendationMatch").css("display", "block");
-              	$("#recommendationMatch").html("We recommend " + result.artist);
-           },
-           error: function() {
-           		$("#recommendationMatch").css("display", "block");
-           		$("#recommendationMatch").html("Sorry, we don't have any recommendations from your query.");
-           }
-         });
+		//if the input is empty
+		if($("#artist-0").val().length == 0) {
+			$("#recommendationMatch").css("display", "block");
+       		$("#recommendationMatch").html("Please input an artist into the first field.");
+		} else {
+
+			var url = "http://192.168.99.100:8081/v1/" + encodeURIComponent($("#artist-0").val());
+
+			$("#recommendationSpinner").css("display", "block");
+			$("#recommendationMatch").css("display", "block");
+          	$("#recommendationMatch").html("Please wait while we retrieve your results.");
+
+			$.ajax({
+	           type: "POST",
+	           crossDomain: true,
+	           url: url,
+	           data: $("#idForm").serialize(), // serializes the form's elements.
+	           success: function(result)
+	           {
+	           		//filter out the best response
+	           		artists = result.artists;
+	           		var bestArtist = "";
+	           		var bestArtistScore = -1;
+
+	           		for(var i = 0; i < artists.length; i++) {
+	           			if (artists[i].score > bestArtistScore) {
+	           				bestArtistScore = artists[i].score;
+	           				bestArtist = artists[i].name;
+	           			}
+	           		}
+
+	           		$("#recommendationSpinner").css("display", "none");
+	       			$("#recommendationMatch").css("display", "block");
+	              	$("#recommendationMatch").html("We recommend " + bestArtist);
+	           },
+	           error: function() {
+	           		$("#recommendationSpinner").css("display", "none");
+	           		$("#recommendationMatch").css("display", "block");
+	           		$("#recommendationMatch").html("Sorry, we don't have any recommendations from your query.");
+	           }
+	         });
+		}
 
 	    e.preventDefault(); // avoid to execute the actual submit of the form.
 
